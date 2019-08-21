@@ -15,6 +15,12 @@ next: ../
 | GET                | /customers/{id}    | Retrieve an individual customer |
 | PATCH              | /customers/{id}    | Update an individual customer   |
 
+## [Deliveries](/plattform/#deliveries)
+| HTTP method        | Endpoint           | Function                        |
+| ------------------ | ------------------ | ------------------------------- |
+| GET                | /deliveries        | Fetch a collection              |
+| GET                | /deliveries/{id}   | Retrieve an individual delivery |
+
 ## [Orders](/plattform/#orders)
 | HTTP method        | Endpoint           | Function                        |
 | ------------------ | ------------------ | ------------------------------- |

@@ -467,9 +467,8 @@ __RESPONSE__ `StatusCode` 200
             "producer_id": 5678,
             "customer_id": 1234,
             "price": {
-                "shipping": 2000,
                 "subtotal": 4000,
-                "total": 6280,
+                "total": 4280,
                 "vat": [
                     {
                         "factor": 7,
@@ -484,6 +483,7 @@ __RESPONSE__ `StatusCode` 200
                     "vat": 7,
                     "product": {
                         "id": 84683,
+                        "producer_id": 5678,
                         "title": "Potatoes",
                         "unit": "kg",
                         "volume": {
@@ -502,7 +502,6 @@ __RESPONSE__ `StatusCode` 200
             ],
             "updated_at": "2019-07-19 10:22:54",
             "created_at": "2019-07-19 10:20:54",
-            "delivery_at": "2019-07-23 12:00:00"
         },
 
         { ... }
@@ -524,9 +523,8 @@ __RESPONSE__ `StatusCode` 200
         "producer_id": 5678,
         "customer_id": 1234,
         "price": {
-            "shipping": 2000,
             "subtotal": 4000,
-            "total": 6280,
+            "total": 4280,
             "vat": [
                 {
                     "factor": 7,
@@ -541,6 +539,7 @@ __RESPONSE__ `StatusCode` 200
                 "vat": 7,
                 "product": {
                     "id": 84683,
+                    "producer_id": 5678,
                     "title": "Potatoes",
                     "unit": "kg",
                     "volume": {
@@ -559,7 +558,154 @@ __RESPONSE__ `StatusCode` 200
         ],
         "updated_at": "2019-07-19 10:22:54",
         "created_at": "2019-07-19 10:20:54",
-        "delivery_at": "2019-07-23 12:00:00"
     },
+}
+```
+
+## Deliveries
+
+The API allows you to fetch deliveries. A Delivery is a collection of orders. You can retrieve an individual delivery as well as a collection of deliveries.
+
+### Get a collection of deliveries
+__REQUEST__  __`GET`__ `/deliveries`
+``` BASH
+curl https://plattformneun.com/api/v1/deliveries?offset=1564313229 \
+```
+
+::: warning Available query parameters
+- customer_id `Integer` 
+- supplier_id `Integer` 
+- offset `Unix Timestamp`
+:::
+
+__RESPONSE__ `StatusCode` 200
+``` JSON
+{
+    "data": [
+        {
+            "id": 98732,
+            "customer_id": 5678,
+            "supplier_id": 1234,
+            "price": {
+                "shipping": 2000,
+                "subtotal": 4000,
+                "total": 6660,
+                "vat": [
+                    {
+                        "factor": 7,
+                        "amount": 280
+                    },
+                    {
+                        "factor": 19,
+                        "amount": 380
+                    }
+                ]
+            },
+            "items": [
+                {
+                    "quantity": 10,
+                    "price": 250,
+                    "vat": 7,
+                    "product": {
+                        "id": 84683,
+                        "producer_id": 5678,
+                        "title": "Potatoes",
+                        "unit": "kg",
+                        "volume": {
+                            "amount": 1,
+                            "unit": "kg"
+                        },
+                        "price": {
+                            "amount": 1500,
+                            "unit": "kg"
+                        },
+                        "vat": 7,
+                    }
+                },
+
+                { ... }
+            ],
+            "delivery_address": {
+                "recipient": "Gretas Hof GmbH",
+                "street": "Am alten Pfad",
+                "house": "9",
+                "post_code": "10997",
+                "city": "Berlin-Kreuzberg",
+                "country": "Deutschland"
+            },
+            "updated_at": "2019-07-19 10:22:54",
+            "created_at": "2019-07-19 10:20:54",
+            "delivery_at": "2019-07-23 12:00:00"
+        },
+
+        { ... }
+    ]
+}
+```
+
+### Retrieve an individual delivery
+__REQUEST__  __`GET`__ `/deliveries/{id}`
+
+``` BASH
+curl https://plattformneun.com/api/v1/deliveries/98732
+```
+__RESPONSE__ `StatusCode` 200
+``` JSON
+{
+    "data": {
+        "id": 98732,
+        "customer_id": 5678,
+        "supplier_id": 1234,
+        "price": {
+            "shipping": 2000,
+            "subtotal": 4000,
+            "total": 6660,
+            "vat": [
+                {
+                    "factor": 7,
+                    "amount": 280
+                },
+                {
+                    "factor": 19,
+                    "amount": 380
+                }
+            ]
+        },
+        "items": [
+            {
+                "quantity": 10,
+                "price": 250,
+                "vat": 7,
+                "product": {
+                    "id": 84683,
+                    "producer_id": 5678,
+                    "title": "Potatoes",
+                    "unit": "kg",
+                    "volume": {
+                        "amount": 1,
+                        "unit": "kg"
+                    },
+                    "price": {
+                        "amount": 1500,
+                        "unit": "kg"
+                    },
+                    "vat": 7,
+                }
+            },
+
+            { ... }
+        ],
+        "delivery_address": {
+            "recipient": "Gretas Hof GmbH",
+            "street": "Am alten Pfad",
+            "house": "9",
+            "post_code": "10997",
+            "city": "Berlin-Kreuzberg",
+            "country": "Deutschland"
+        },
+        "updated_at": "2019-07-19 10:22:54",
+        "created_at": "2019-07-19 10:20:54",
+        "delivery_at": "2019-07-23 12:00:00"
+    }
 }
 ```
